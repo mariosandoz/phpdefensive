@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
+        <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
+        <title>PHP Defensive Programming</title>
+        <style>
+            @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+            @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+            @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+            body {
+                font-family: 'Droid Serif';
+            }
+            h1, h2, h3 {
+                font-family: 'Yanone Kaffeesatz';
+                font-weight: 400;
+                margin-bottom: 0;
+            }
+            .remark-slide-content h1 { font-size: 3em; }
+            .remark-slide-content h2 { font-size: 2em; }
+            .remark-slide-content h3 { font-size: 1.6em; }
+            .footnote {
+                position: absolute;
+                bottom: 3em;
+            }
+            li p { line-height: 1.25em; }
+            .red { color: #fa0000; }
+            .large { font-size: 2em; }
+            a, a > code {
+                color: rgb(249, 38, 114);
+                text-decoration: none;
+            }
+            code {
+                background: #e7e8e2;
+                border-radius: 5px;
+            }
+            .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+            .remark-code-line-highlighted     { background-color: #373832; }
+            .pull-left {
+                float: left;
+                width: 47%;
+            }
+            .pull-right {
+                float: right;
+                width: 47%;
+            }
+            .pull-right ~ p {
+                clear: both;
+            }
+            #slideshow .slide .content code {
+                font-size: 0.8em;
+            }
+            #slideshow .slide .content pre code {
+                font-size: 0.9em;
+                padding: 15px;
+            }
+            .inverse {
+                background: #272822;
+                color: #777872;
+                text-shadow: 0 0 20px #333;
+            }
+            .inverse h1, .inverse h2 {
+                color: #f3f3f3;
+                line-height: 0.8em;
+            }
+
+            /* Slide-specific styling */
+            #slide-inverse .footnote {
+                bottom: 12px;
+                left: 20px;
+            }
+            #slide-how .slides {
+                font-size: 0.9em;
+                position: absolute;
+                top:  151px;
+                right: 140px;
+            }
+            #slide-how .slides h3 {
+                margin-top: 0.2em;
+            }
+            #slide-how .slides .first, #slide-how .slides .second {
+                padding: 1px 20px;
+                height: 90px;
+                width: 120px;
+                -moz-box-shadow: 0 0 10px #777;
+                -webkit-box-shadow: 0 0 10px #777;
+                box-shadow: 0 0 10px #777;
+            }
+            #slide-how .slides .first {
+                background: #fff;
+                position: absolute;
+                top: 20%;
+                left: 20%;
+                z-index: 1;
+            }
+            #slide-how .slides .second {
+                position: relative;
+                background: #fff;
+                z-index: 0;
+            }
+
+            /* Two-column layout */
+            .left-column {
+                color: #777;
+                width: 20%;
+                height: 92%;
+                float: left;
+            }
+            .left-column h2:last-of-type, .left-column h3:last-child {
+                color: #000;
+            }
+            .right-column {
+                width: 75%;
+                float: right;
+                padding-top: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <textarea id="source">
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+#HI!
+---
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+#I'M MARYO SANDOZ!
+---
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+#PHP DEFENSIVE PROGRAMMING 
+---
+## What is it and why should I be using it?
+---
+## Do you know defensive driving?
+---
+## Defensive driving
+
+= 
+
+## assuming that other drivers will make mistakes
+---
+##  Defensive coding is like Defensive Driving
+---
+##  Be Cautious about Everyone's Code
+---
+##  Be Cautious about Your Code
+---
+##  Why use it?
+
+---
+layout: false
+.left-column[
+   ## Why use it?
+]
+.right-column[
+  Of course, improving Software Quality
+
+  Defensive programming, simply put, is programming with the intent to anticipate likely failure points. 
+  
+  The goal is to circumvent those likely problems before they occur.
+  
+  The Wikipedia entry goes on to say that defensive programming is one approach to improving software quality by “Making the software behave in a predictable manner despite unexpected input or user actions.”
+]
+---
+template: inverse
+
+## How does it work, then?
+---
+name: how
+
+.left-column[
+  ## How does it work?
+### - Conditional Statement
+]
+.right-column[
+This is one of the easiest places to program defensively, and one where it’s easiest to be complacent. 
+
+In many cases while programming in PHP, you simply won’t need an “else” case
+
+```remark
+if($var == a){ 
+  //do something
+}else if($var == b){
+  //do something 
+}else if($var == c){
+  //do something
+}
+
+```
+ I know that you know there are no other possibilities. But sometimes (unexpected) things happen.
+ 
+ Make use of else blocks. Make use of default in switches. 
+
+ Use them to return or log an error so that you’re aware of what’s happened, should it ever happen. 
+ It may be an extra couple of lines of code, but it’s worth it when something happens that you did not expect.
+
+]
+---
+.left-column[
+  ## How does it work?
+  ### - Conditional Statement
+  ### - Never Trust User Input
+]
+.right-column[
+  Have you heard this statement? Most of us have. We should never trust user input.
+
+  This doesn't mean that all users are the hackers that will destroy your code (but, this is possible)
+
+  Assume that users don't know your code, what parameter you need, the format or how long the input can be.
+  They don't know what file type can upload, or what size.
+
+  Or maybe they are hackers that want to upload script that destroy your masterpiece.
+
+  So, NEVER TRUST USER INPUT
+  --
+  - Always VALIDATE the user input
+
+  - Ensure that you're using appropriate techniques when handling the data, especially when storing or retrieving to/from databases
+
+]
+---
+.left-column[
+  ## How does it work?
+  ### - Conditional Statement
+  ### - Never Trust User Input
+]
+.right-column[
+  There are many methods by which to validate user input safely.
+
+  Typecasting is an interesting way to “validate” user input. Sometimes it goes a bit like this:
+
+```remark
+  $member->property = (int) $_GET['property'];
+```
+But, the problem is, we are not really checking the input, just forcing it
+
+Basically, that comes out like this:
+```remark
+  $member->property = filter_input(INPUT_GET, 'property', 
+  FILTER_VALIDATE_INT);
+
+  if (false === $member->property) {
+    throw new Exception('Property was not an int');
+  }
+
+```
+]
+---
+.left-column[
+  ## How does it work?
+  ### - Conditional Statement
+  ### - Never Trust User Input
+  ### - Assumptions About Your Code
+]
+.right-column[
+  Don’t assume anything. 
+
+  If the previous two topics teach us anything, it’s that we should not make any assumptions.
+
+  As programmers, especially when focusing on a single project for too long, we begin to assume a lot.
+
+  We assume that the user will know everything, we assume that the user will not do the dumb thing, because...we already know that fact
+
+  Even, we assume that everything will be handled by our frontend friend, 
+  but obviously you still deal with user behavior and user input in the back-end as well, so it’s worth thinking about.
+
+]
+---
+.left-column[
+  ## How does it work?
+  ### - Conditional Statement
+  ### - Never Trust User Input
+  ### - Assumptions About Your Code
+  ### - Consistency in Syntax and Naming
+]
+.right-column[
+  FOLLOW the Coding GUIDELINES!!
+
+  Coding guideline is a standard coding elements that are required to ensure a high level of technical interoperability between shared PHP code.
+
+  You can check it later [here](http://www.php-fig.org/psr/psr-1//)
+
+  That is a recommendation, the key is consistency. 
+
+  However, whether you’re coding to some set of standards or not, you should at very least be internally consistent – because it will make you less error prone
+]
+---
+.left-column[
+  ## How does it work?
+  ### - Try and Catch
+]
+.right-column[
+  try/catch statements are another hot topic among PHP developers.
+
+```remark
+  try {
+    if($member->property <= 0){
+      throw new Exception("Value must be 1 or greater");
+    }
+    // If no exception was thrown, this will be output.
+    echo "The value is acceptable";
+  } catch(Exception $e) {
+    echo 'Message: '.$e->getMessage();
+  }
+
+
+```
+
+]
+---
+.left-column[
+  ## How does it work?
+  ### - Try and Catch
+  ### - Transactions
+]
+.right-column[
+CONTENT IS HERE
+]
+---
+template: inverse
+
+## Of course, Markdown can only go so far.
+---
+.left-column[
+  ## Markdown extensions
+]
+.right-column[
+To help out with slide layout and formatting, a few Markdown extensions have been included:
+
+- Slide properties, for naming, styling and templating slides
+
+- Content classes, for styling specific content
+
+- Syntax highlighting, supporting a range of languages
+]
+
+---
+.left-column[
+  ## Markdown extensions
+  ### - Slide properties
+]
+.right-column[
+Initial lines containing key-value pairs are extracted as slide properties:
+
+```remark
+name: agenda
+class: middle, center
+
+# Agenda
+
+The name of this slide is {{ name }}.
+```
+
+Slide properties serve multiple purposes:
+
+* Naming and styling slides using properties `name` and `class`
+
+* Using slides as templates using properties `template` and `layout`
+
+* Expansion of `{{ property }}` expressions to property values
+
+See the [complete list](https://github.com/gnab/remark/wiki/Markdown#slide-properties) of slide properties.
+]
+---
+.left-column[
+  ## Markdown extensions
+  ### - Slide properties
+  ### - Content classes
+]
+.right-column[
+Any occurences of one or more dotted CSS class names followed by square brackets are replaced with the contents of the brackets with the specified classes applied:
+
+```remark
+.footnote[.red.bold[*] Important footnote]
+```
+
+Resulting HTML extract:
+
+```xml
+<span class="footnote">
+  <span class="red bold">*</span> Important footnote
+</span>
+```
+]
+---
+.left-column[
+  ## Markdown extensions
+  ### - Slide properties
+  ### - Content classes
+  ### - Syntax Highlighting
+]
+.right-column[
+Code blocks can be syntax highlighted by specifying a language from the set of [supported languages](https://github.com/gnab/remark/wiki/Configuration#highlighting).
+
+Using [GFM](http://github.github.com/github-flavored-markdown/) fenced code blocks you can easily specify highlighting language:
+
+.pull-left[
+
+<pre><code>```javascript
+function add(a, b)
+  return a + b
+end
+```</code></pre>
+]
+.pull-right[
+
+<pre><code>```ruby
+def add(a, b)
+  a + b
+end
+```</code></pre>
+]
+
+A number of highlighting [styles](https://github.com/gnab/remark/wiki/Configuration#highlighting) are available, including several well-known themes from different editors and IDEs.
+
+]
+---
+.left-column[
+  ## Presenter mode
+]
+.right-column[
+To help out with giving presentations, a presenter mode comprising the
+following features is provided:
+
+- Display of slide notes for the current slide, to help you remember
+  key points
+
+- Display of upcoming slide, to let you know what's coming
+
+- Cloning of slideshow for viewing on extended display
+]
+---
+.left-column[
+  ## Presenter mode
+  ### - Inline notes
+]
+.right-column[
+Just like three dashes separate slides,
+three question marks separate slide content from slide notes:
+
+```
+Slide 1 content
+
+*???
+
+Slide 1 notes
+
+---
+
+Slide 2 content
+
+*???
+
+Slide 2 notes
+```
+
+Slide notes are also treated as Markdown, and will be converted in the
+same manner slide content is.
+
+Pressing __P__ will toggle presenter mode.
+]
+???
+Congratulations, you just toggled presenter mode!
+
+Now press __P__ to toggle it back off.
+---
+.left-column[
+  ## Presenter mode
+  ### - Inline notes
+  ### - Cloned view
+]
+.right-column[
+Presenter mode of course makes no sense to the audience.
+
+Creating a cloned view of your slideshow lets you:
+
+- Move the cloned view to the extended display visible to the audience
+
+- Put the original slideshow in presenter mode
+
+- Navigate as usual, and the cloned view will automatically keep up with the original
+
+Pressing __C__ will open a cloned view of the current slideshow in a new
+browser window.
+]
+---
+template: inverse
+
+## It's time to get started!
+---
+.left-column[
+  ## Getting started
+]
+.right-column[
+Getting up and running is done in only a few steps:
+
+1. Visit the [project site](http://github.com/gnab/remark)
+
+2. Follow the steps in the Getting Started section
+
+For more information on using remark, please check out the [wiki](https://github.com/gnab/remark/wiki) pages.
+]
+---
+name: last-page
+template: inverse
+
+## That's all folks (for now)!
+
+Slideshow created using [remark](http://github.com/gnab/remark).
+        </textarea>
+        <script src="./js/remark-latest.min.js"><script>
+        var hljs = remark.highlighter.engine;
+        </script>
+        <script src="./js/remark.language.js"></script>
+        <script>
+        var slideshow = remark.create({
+            highlightStyle: 'monokai',
+            highlightLanguage: 'remark',
+            highlightLines: true
+        });
+        </script>
+        <script>
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-44561333-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function () {
+                var ga = document.createElement('script');
+                ga.src = 'https://ssl.google-analytics.com/ga.js';
+                var s = document.scripts[0];
+                s.parentNode.insertBefore(ga, s);
+            }());
+        </script>
+    </body>
+</html>
