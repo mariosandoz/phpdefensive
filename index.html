@@ -124,7 +124,7 @@ name: inverse
 layout: true
 class: center, middle, inverse
 ---
-#HI!
+#Hello!
 ---
 name: inverse
 layout: true
@@ -140,6 +140,8 @@ class: center, middle, inverse
 ---
 ## What is it and why should I be using it?
 ---
+## First of all,
+
 ## Do you know defensive driving?
 ---
 ## Defensive driving
@@ -343,17 +345,92 @@ template: inverse
   The administrator should get every detailed alerts and error log.
 ]
 ---
-template: inverse
-
-## Conclusion
----
 .left-column[
-  ## Conclusion
+  ## How does it work?
+  ### - Avoid mixed param types
 ]
 .right-column[
 
+  Check this code:
+```remark
+  class PrisonerTransferRequest
+  {
+    /**
+     * @param mixed $accessLevel
+     * - false if none
+     * - true if guards are required
+     * - null if to be decided
+     * - 10 if special cargo is needed
+     * - 20 if high security is needed
+     */
+    public function approve($securityLevel)
+    {
+        // ...
+    }
+}
+```
+Looks like familiar ?
+
+It will be more difficult to maintain input and output
 ]
 ---
+.left-column[
+  ## How does it work?
+  ### - Avoid mixed param types
+]
+.right-column[
+  Use object
+
+```remark
+class PrisonerTransferRequest
+{
+    public function approve(PrisonerSecurityLevel $securityLevel)
+    {
+        // ...
+    }
+}
+
+```
+Why object?
+
+Value objects ensure consistency
+
+Value objects simplify data validation
+]
+
+
+---
+template: inverse
+
+## Unit Testing
+---
+template: inverse
+## Test All Scenarios
+---
+template: inverse
+## RECAP
+---
+template: inverse
+
+## THESE ARE SUGGESTIONS
+---
+
+template: inverse
+
+## TRUST NO CODE
+---
+
+template: inverse
+
+## REDUCE FEATURE TO THE BARE MINIMUM
+---
+
+template: inverse
+
+## AWAIT STRICT
+## RETURN STRICT
+---
+
 name: last-page
 template: inverse
 
